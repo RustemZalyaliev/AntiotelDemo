@@ -66,16 +66,6 @@ public class AntiotelBot extends TelegramLongPollingBot {
 
         if (update.hasMessage() && update.getMessage().hasText()) {
 
-            if ("hecntv1979".equals(update.getMessage().getText()) && update.getMessage().getChatId() == botConfig.getOwnerId()) {
-
-                SendMessage answerMessage = new SendMessage();
-                answerMessage.setChatId(botConfig.getOwnerId());
-                answerMessage.setText("AntiotelBot is shutdown.");
-                sendMessage(answerMessage);
-
-                System.exit(0);
-            }
-
             answerData = textMessageHandler.handleTextMessage(update.getMessage());
 
             for (var data : answerData.entrySet()) {
@@ -247,16 +237,6 @@ public class AntiotelBot extends TelegramLongPollingBot {
             execute(sendPhoto);
         } catch (TelegramApiException e) {
             e.getStackTrace();
-        }
-    }
-
-    public static List<String> strToList(String str) {
-
-        if (!str.isEmpty()) {
-            String[] arr = str.split("&");
-            return new ArrayList<>(List.of(arr));
-        } else {
-            return new ArrayList<>();
         }
     }
 
