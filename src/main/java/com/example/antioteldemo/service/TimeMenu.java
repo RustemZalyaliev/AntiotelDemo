@@ -170,15 +170,7 @@ public class TimeMenu {
                     ? ChronoUnit.MINUTES.between(currentOrders.get(chatId).getTimeFrom(), endHalf)
                     : ChronoUnit.MINUTES.between(startHalf, currentOrders.get(chatId).getTimeFrom().plusMinutes(30));
 
-            // TODO TEST!!!
-            //System.out.println("hourDelta = " + hourDelta + "\n");
-            // TODO do not forget delete!!
-
             if (hourDelta % 60 == 0 && (hourDelta >= 120 || hourDelta <= -120)) {
-
-                // TODO TEST!!!
-                //System.out.println("endHalf = " + endHalf + "\n");
-                // TODO do not forget delete!!
 
                 boolean isLastHalfHour = (orderDate + "T00:00").equals(String.valueOf(endHalf));
 
@@ -198,10 +190,6 @@ public class TimeMenu {
                     currentOrders.get(chatId).setTimeTo(endHalf);
                 }
 
-                // TODO TEST!!!
-                //System.out.println("hourDelta = " + hourDelta + "\n");
-                // TODO do not forget delete!!
-
                 currentOrderHours = (int) (hourDelta < 0 ? -hourDelta : hourDelta);
                 currentOrders.get(chatId).setHours(currentOrderHours / 60);
                 currentOrders.get(chatId).setProfit(currentOrders.get(chatId).getHours() * currentOrders.get(chatId).getHourPrice());
@@ -215,29 +203,13 @@ public class TimeMenu {
             currentOrders.get(chatId).setProfit(0);
         }
 
-        // TODO TEST!!!
-        System.out.println("currentOrders timeFrom = " + currentOrders.get(chatId).getTimeFrom());
-        System.out.println("currentOrders timeTo = " + currentOrders.get(chatId).getTimeTo() + "\n");
-        // TODO do not forget delete!!
-
         List<SendMessage> twoDatesAndCalcPanel = getTimeMenu(currentOrders.get(chatId).getDateFrom(), chatId);
-
-        // TODO TEST!!!
-        //System.out.println("currentOrders FirstDayMessageId = " + currentOrders.get(chatId).getFirstDayMessageId());
-        //System.out.println("currentOrders SecondDayMessageId = " + currentOrders.get(chatId).getSecondDayMessageId() + "\n");
-        // TODO do not forget delete!!
-
         twoDatesAndCalcPanel.get(0).setMessageThreadId(currentOrders.get(chatId).getFirstDayMessageId());
         twoDatesAndCalcPanel.get(0).setChatId(chatId);
         twoDatesAndCalcPanel.get(0).setProtectContent(true);
         twoDatesAndCalcPanel.get(1).setMessageThreadId(currentOrders.get(chatId).getSecondDayMessageId());
         twoDatesAndCalcPanel.get(1).setChatId(chatId);
         twoDatesAndCalcPanel.get(1).setProtectContent(false);
-
-        // TODO TEST!!!
-        System.out.println("Hours = " + currentOrders.get(chatId).getHours());
-        System.out.println("Profit = " + currentOrders.get(chatId).getProfit() + "\n");
-        // TODO do not forget delete!!
 
         LocalDate orderDateFrom = getDateFromTimeStamp(currentOrders.get(chatId).getTimeFrom());
         int profit = currentOrders.get(chatId).getProfit() == null ? 0 : currentOrders.get(chatId).getProfit();
@@ -246,10 +218,6 @@ public class TimeMenu {
         SendMessage updateCalcPanel = getCalcPanel(chatId, orderDateFrom, profit, hourNumber);
         updateCalcPanel.setMessageThreadId(currentOrders.get(chatId).getCalcPanelMessageId());
         twoDatesAndCalcPanel.add(updateCalcPanel);
-
-        // TODO TEST!!!
-        //System.out.println("twoDatesAndCalcPanel from handleButtonPushed = " + twoDatesAndCalcPanel + "\n");
-        // TODO do not forget delete!!!
 
         return twoDatesAndCalcPanel;
     }
@@ -274,10 +242,6 @@ public class TimeMenu {
         sendMessage.setChatId(chatId);
         sendMessage.setText(text);
         sendMessage.setMessageThreadId(currentOrders.get(chatId).getCalcPanelMessageId());
-
-        // TODO TEST!!!
-        //System.out.println("sendMessage from getCalcPanel = " + sendMessage + "\n");
-        // TODO do not forget delete!!!
 
         return sendMessage;
     }
